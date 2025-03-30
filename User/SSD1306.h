@@ -1,5 +1,17 @@
+/****************************************************************
+*
+*
+* SSD1306 Driver for CH32V00X
+* Created by Ign555
+* Version : 0.9 v
+* File Creation : 30/03/2025
+*
+*
+****************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "ch32v00x_gpio.h"
 #include "ch32v00x_i2c.h"
 
@@ -19,6 +31,10 @@
 //SSD1306 pages and column
 #define SSD1306_COLUMNS 128
 #define SSD1306_PAGES 8
+
+//SSD1306 screen height
+#define SSD1306_32_PX 32
+#define SSD1306_64_PX 64
 
 //SSD1306 display On/Off
 #define SSD1306_TURN_OFF_SCREEN 0xAE
@@ -67,7 +83,7 @@
 #define SSD1306_OSCILLATOR_FRQ 0x80
 
 //SSD1306 height value
-#define SSD1306_DISPLAY_HEIGHT_128 0x3F
+#define SSD1306_DISPLAY_HEIGHT 0x3F //To check
 
 //SSD1306 vram address selection
 #define SSD1306_SET_COLUMN 0x21
@@ -91,10 +107,10 @@ void I2C_init_for_SSD1306();
 /******************************SSD1306 structure & init/destroy ******************************/
 
 typedef struct SSD1306{
-    uint8_t addr, **screen_buffer;
+    uint8_t addr, h, *screen_buffer;
 }SSD1306;
 
-SSD1306 SSD1306_init(uint8_t addr);
+SSD1306 SSD1306_init(uint8_t addr, uint8_t screen_height);
 void SSD1306_destroy(SSD1306 *display);
 
 /******************************SSD1306 basic functions******************************/
@@ -104,6 +120,7 @@ void SSD1306_send_data(SSD1306 *display, uint8_t data);
 
 /******************************SSD1306 graphic functions******************************/
 
+void SSD1306_draw_pixel(SSD1306 *display, uint8_t x, uint8_t y, uint8_t pixel_value);
 void SSD1306_clean(SSD1306 *display, uint8_t pixel_value);
 void SSD1306_blit_screen(SSD1306 *display);
 
@@ -112,4 +129,13 @@ void SSD1306_blit_screen(SSD1306 *display);
 void _SSD1306_set_page(SSD1306 *display, uint8_t page);
 void _SSD1306_set_column(SSD1306 *display, uint8_t column);
 
+uint8_t _SSD1306_get_page(SSD1306 *display, uint8_t y);
+
 #endif
+
+/*??????????????????????????????
+??????????????????????????????
+???????????????????? ?????????
+?????????????????????????????
+?????????????????????????????
+?????????????????????????????*/

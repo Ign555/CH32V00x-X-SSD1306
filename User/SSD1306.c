@@ -1,4 +1,16 @@
+/****************************************************************
+*
+*
+* SSD1306 Driver for CH32V00X
+* Created by Ign555
+* Version : 0.9 v
+* File Creation : 30/03/2025
+*
+*
+****************************************************************/
+
 #include "SSD1306.h"
+
 /****************************************************************
 *
 * I2C Initialisation part
@@ -11,7 +23,6 @@ void I2C_init_for_SSD1306(){
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC | RCC_APB2Periph_AFIO, ENABLE); 
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C1, ENABLE); 
 
-    
     //GPIO Init 
     GPIO_InitTypeDef i2c_gpio = {0}; //A structure to initialise GPIO  
     i2c_gpio.GPIO_Pin = GPIO_Pin_1 | GPIO_Pin_2;
@@ -42,32 +53,29 @@ void I2C_init_for_SSD1306(){
 
 /******************************SSD1306 init & destroy functions******************************/
 
-SSD1306 SSD1306_init(uint8_t addr){
+SSD1306 SSD1306_init(uint8_t addr, uint8_t screen_height){
     
     SSD1306 display;
 
     if(addr > 0x7F)while(1); //Check if the SSD1306 address is valid, if not -> infinite loop
 
     //Alloc memory to screen buffer
-    display.screen_buffer = (uint8_t **)malloc(sizeof(uint8_t *) * SSD1306_COLUMNS);
-
-    for(int i = 0; i < SSD1306_COLUMNS; i++){
-        display.screen_buffer[i] = (uint8_t *)malloc(sizeof(uint8_t) * SSD1306_PAGES);
-    }
+    display.screen_buffer = (uint8_t *)malloc(sizeof(uint8_t) * SSD1306_COLUMNS * SSD1306_PAGES);
 
     //Set display attribute
     display.addr = addr;
+    display.h = screen_height;
 
     SSD1306_send_command(&display, SSD1306_TURN_OFF_SCREEN);
     SSD1306_send_command(&display, SSD1306_SET_CLOCK_DIVIDE_RATIO);SSD1306_send_command(&display, SSD1306_OSCILLATOR_FRQ);
-    SSD1306_send_command(&display, SSD1306_SET_MULTIPLEX_RATIO);SSD1306_send_command(&display, SSD1306_DISPLAY_HEIGHT_128);
+    SSD1306_send_command(&display, SSD1306_SET_MULTIPLEX_RATIO);SSD1306_send_command(&display, SSD1306_DISPLAY_HEIGHT);
     SSD1306_send_command(&display, SSD1306_SET_DISPLAY_OFFSET);SSD1306_send_command(&display, 0x00); //No offset
     SSD1306_send_command(&display, SSD1306_START_LINE_0); //Set start line at 0 
     SSD1306_send_command(&display, SSD1306_SET_ADDRESSING_MODE);SSD1306_send_command(&display, SSD1306_HORIZONTAL_ADDRESSING_MODE);
     SSD1306_send_command(&display, SSD1306_CHARGE_PUMP_SETTINGS);SSD1306_send_command(&display, SSD1306_ENABLE_CHARGE_PUMP);
 
     SSD1306_send_command(&display, SSD1306_SET_CONTRAST);SSD1306_send_command(&display, SSD1306_CONSTRAST_LOW);
-
+    //I have things to add here
     SSD1306_send_command(&display, SSD1306_DISPLAY_MODE_NORMAL);
     SSD1306_send_command(&display, SSD1306_SCROLLING_DISABLE);
     SSD1306_send_command(&display, SSD1306_TURN_ON_SCREEN);
@@ -78,9 +86,6 @@ SSD1306 SSD1306_init(uint8_t addr){
 
 void SSD1306_destroy(SSD1306 *display){
 
-    for(int i = 0; i < SSD1306_COLUMNS;i++){
-        free(display->screen_buffer[i]);
-    }
     free(display->screen_buffer);
 
 }
@@ -137,11 +142,21 @@ void SSD1306_send_data(SSD1306 *display, uint8_t data){
 
 /******************************SSD1306 graphic functions******************************/
 
+void SSD1306_draw_pixel(SSD1306 *display, uint8_t x, uint8_t y, uint8_t pixel_value){
+
+    //May be I could find a better way
+    if(display->h == SSD1306_64_PX){
+        display->screen_buffer[_SSD1306_get_page(display, y)*SSD1306_COLUMNS + x] |= 1 << y % SSD1306_PAGES;
+    }else if(display->h == SSD1306_32_PX){
+        display->screen_buffer[_SSD1306_get_page(display, y)*SSD1306_COLUMNS + x] |= 1 << (y*2) % (display->h/SSD1306_PAGES);
+    }
+}
+
 void SSD1306_clean(SSD1306 *display, uint8_t pixel_value){
 
     for(uint8_t i = 0; i < SSD1306_PAGES; i++){
         for(uint8_t j = 0; j < SSD1306_COLUMNS; j++){
-            display->screen_buffer[j][i] = (pixel_value) ? 0xFF : 0x00;
+            display->screen_buffer[i*SSD1306_COLUMNS + j] = (pixel_value) ? 0xFF : 0x00;
         }
     }
     
@@ -153,7 +168,7 @@ void SSD1306_blit_screen(SSD1306 *display){
         for(uint8_t j = 0; j < SSD1306_COLUMNS; j++){
             _SSD1306_set_page(display, i);
             _SSD1306_set_column(display, j);
-            SSD1306_send_data(display, display->screen_buffer[j][i]);
+            SSD1306_send_data(display, display->screen_buffer[i*SSD1306_COLUMNS + j]);
         }
     }
     
@@ -176,3 +191,16 @@ void _SSD1306_set_column(SSD1306 *display, uint8_t column){
     SSD1306_send_command(display, SSD1306_COLUMNS-1);
 
 }
+
+uint8_t _SSD1306_get_page(SSD1306 *display, uint8_t y){
+
+    return (y)/(display->h/SSD1306_PAGES);
+
+}
+
+/*??????????????????????????????
+??????????????????????????????
+???????????????????? ?????????
+?????????????????????????????
+?????????????????????????????
+?????????????????????????????*/
