@@ -4,6 +4,7 @@
 * I2C Initialisation part
 *
 ****************************************************************/
+
 void I2C_init_for_SSD1306(){
 
     //Set Clock command for GPIO, AF and I2C peripherical 
@@ -32,16 +33,27 @@ void I2C_init_for_SSD1306(){
     I2C_Cmd(I2C1, ENABLE); //Enable I2C1 peripherical
 
 }
+
 /****************************************************************
 *
-* Welcome to SSD1306 part
+* Welcome to SSD1306 section
 *
 ****************************************************************/
+
+/******************************SSD1306 init & destroy functions******************************/
+
 SSD1306 SSD1306_init(uint8_t addr){
     
     SSD1306 display;
 
     if(addr > 0x7F)while(1); //Check if the SSD1306 address is valid, if not -> infinite loop
+
+    //Alloc memory to screen buffer
+    display.screen_buffer = (uint8_t **)malloc(sizeof(uint8_t *) * SSD1306_COLUMNS);
+
+    for(int i = 0; i < SSD1306_COLUMNS; i++){
+        display.screen_buffer[i] = (uint8_t *)malloc(sizeof(uint8_t) * SSD1306_PAGES);
+    }
 
     //Set display attribute
     display.addr = addr;
@@ -51,10 +63,25 @@ SSD1306 SSD1306_init(uint8_t addr){
     SSD1306_send_command(&display, SSD1306_SET_MULTIPLEX_RATIO);SSD1306_send_command(&display, SSD1306_DISPLAY_HEIGHT_128);
     SSD1306_send_command(&display, SSD1306_SET_DISPLAY_OFFSET);SSD1306_send_command(&display, 0x00); //No offset
     SSD1306_send_command(&display, SSD1306_START_LINE_0); //Set start line at 0 
-    SSD1306_send_command(&display, SSD1306_TURN_OFF_SCREEN);
-    SSD1306_send_command(&display, SSD1306_TURN_OFF_SCREEN);
+    SSD1306_send_command(&display, SSD1306_SET_ADDRESSING_MODE);SSD1306_send_command(&display, SSD1306_HORIZONTAL_ADDRESSING_MODE);
+    SSD1306_send_command(&display, SSD1306_CHARGE_PUMP_SETTINGS);SSD1306_send_command(&display, SSD1306_ENABLE_CHARGE_PUMP);
+
+    SSD1306_send_command(&display, SSD1306_SET_CONTRAST);SSD1306_send_command(&display, SSD1306_CONSTRAST_LOW);
+
+    SSD1306_send_command(&display, SSD1306_DISPLAY_MODE_NORMAL);
+    SSD1306_send_command(&display, SSD1306_SCROLLING_DISABLE);
+    SSD1306_send_command(&display, SSD1306_TURN_ON_SCREEN);
     
     return display;
+
+}
+
+void SSD1306_destroy(SSD1306 *display){
+
+    for(int i = 0; i < SSD1306_COLUMNS;i++){
+        free(display->screen_buffer[i]);
+    }
+    free(display->screen_buffer);
 
 }
 
@@ -82,4 +109,70 @@ void SSD1306_send_command(SSD1306 *display, uint8_t command){
     
     I2C_GenerateSTOP(I2C1, ENABLE); //Generate a stop 
     
+}
+
+void SSD1306_send_data(SSD1306 *display, uint8_t data){
+
+    while(I2C_GetITStatus(I2C1, I2C_FLAG_BUSY) != RESET); //Wait untill the line is not busy
+
+    I2C_GenerateSTART(I2C1, ENABLE); //Generate a start
+    
+    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT)); //Wait untill the chip switch in master mode
+
+    I2C_Send7bitAddress(I2C1, display->addr << 1, I2C_Direction_Transmitter); //Send the 7 bit address ( for sending data only )
+    
+    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED)); //Wait untill the master transmitter mode is enable
+    
+    I2C_SendData(I2C1, SSD1306_DATA_FLAG); //Send a byte to tell the display that it's a data
+    
+    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED)); //Wait untill the bytes has been sent
+
+    I2C_SendData(I2C1, data); //Send the data
+    
+    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED)); //Wait untill the bytes has been sent
+    
+    I2C_GenerateSTOP(I2C1, ENABLE); //Generate a stop 
+    
+}
+
+/******************************SSD1306 graphic functions******************************/
+
+void SSD1306_clean(SSD1306 *display, uint8_t pixel_value){
+
+    for(uint8_t i = 0; i < SSD1306_PAGES; i++){
+        for(uint8_t j = 0; j < SSD1306_COLUMNS; j++){
+            display->screen_buffer[j][i] = (pixel_value) ? 0xFF : 0x00;
+        }
+    }
+    
+}
+
+void SSD1306_blit_screen(SSD1306 *display){
+
+    for(uint8_t i = 0; i < SSD1306_PAGES; i++){
+        for(uint8_t j = 0; j < SSD1306_COLUMNS; j++){
+            _SSD1306_set_page(display, i);
+            _SSD1306_set_column(display, j);
+            SSD1306_send_data(display, display->screen_buffer[j][i]);
+        }
+    }
+    
+}
+
+/******************************SSD1306 private functions******************************/
+
+void _SSD1306_set_page(SSD1306 *display, uint8_t page){
+
+    SSD1306_send_command(display, SSD1306_SET_PAGE);
+    SSD1306_send_command(display, page);
+    SSD1306_send_command(display, SSD1306_PAGES-1);
+
+}
+
+void _SSD1306_set_column(SSD1306 *display, uint8_t column){
+
+    SSD1306_send_command(display, SSD1306_SET_COLUMN);
+    SSD1306_send_command(display, column);
+    SSD1306_send_command(display, SSD1306_COLUMNS-1);
+
 }
