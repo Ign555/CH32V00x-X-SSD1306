@@ -11,7 +11,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include "ch32v00x_gpio.h"
 #include "ch32v00x_i2c.h"
 
