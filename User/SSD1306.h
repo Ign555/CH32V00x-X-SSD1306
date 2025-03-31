@@ -55,6 +55,9 @@
 //SSD1306 set display start line
 #define SSD1306_START_LINE_0 0x40
 
+//SSD1306 set display offset
+#define SSD1306_NO_OFFSET 0x40
+
 //SSD1306 addressing mode
 #define SSD1306_HORIZONTAL_ADDRESSING_MODE 0x00
 
@@ -133,7 +136,7 @@ uint8_t _SSD1306_get_page(SSD1306 *display, uint8_t y);
 
 #endif
 
-/*??????????????????????????????
+/*
                                                                                                     
                                                                                                     
                                                                        .                            
