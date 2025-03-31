@@ -41,13 +41,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  12 .debug_ranges 00000470  00000000  00000000  0000e300  2**3
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_line   000054e9  00000000  00000000  0000e770  2**0
+ 13 .debug_line   000054ec  00000000  00000000  0000e770  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    00001741  00000000  00000000  00013c59  2**0
+ 14 .debug_str    00001744  00000000  00000000  00013c5c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .comment      00000033  00000000  00000000  0001539a  2**0
+ 15 .comment      00000033  00000000  00000000  000153a0  2**0
                   CONTENTS, READONLY
- 16 .debug_frame  000009f4  00000000  00000000  000153d0  2**2
+ 16 .debug_frame  000009f4  00000000  00000000  000153d4  2**2
                   CONTENTS, READONLY, DEBUGGING
 SYMBOL TABLE:
 00000000 l    d  .init	00000000 .init
@@ -69,7 +69,7 @@ SYMBOL TABLE:
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    df *ABS*	00000000 SSD1306.c
 00000000 l    df *ABS*	00000000 ch32v00x_it.c
-00000000 l    df *ABS*	00000000 main.c
+00000000 l    df *ABS*	00000000 example.c
 00000000 l    df *ABS*	00000000 system_ch32v00x.c
 00000000 l    df *ABS*	00000000 ch32v00x_gpio.c
 00000000 l    df *ABS*	00000000 ch32v00x_i2c.c

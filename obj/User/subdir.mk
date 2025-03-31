@@ -7,19 +7,19 @@
 C_SRCS += \
 ../User/SSD1306.c \
 ../User/ch32v00x_it.c \
-../User/main.c \
+../User/example.c \
 ../User/system_ch32v00x.c 
 
 C_DEPS += \
 ./User/SSD1306.d \
 ./User/ch32v00x_it.d \
-./User/main.d \
+./User/example.d \
 ./User/system_ch32v00x.d 
 
 OBJS += \
 ./User/SSD1306.o \
 ./User/ch32v00x_it.o \
-./User/main.o \
+./User/example.o \
 ./User/system_ch32v00x.o 
 
 

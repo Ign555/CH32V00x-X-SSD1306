@@ -40,9 +40,9 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./User/ch32v00x_it.o
  .data          0x0000000000000000        0x0 ./User/ch32v00x_it.o
  .bss           0x0000000000000000        0x0 ./User/ch32v00x_it.o
- .text          0x0000000000000000        0x0 ./User/main.o
- .data          0x0000000000000000        0x0 ./User/main.o
- .bss           0x0000000000000000        0x0 ./User/main.o
+ .text          0x0000000000000000        0x0 ./User/example.o
+ .data          0x0000000000000000        0x0 ./User/example.o
+ .bss           0x0000000000000000        0x0 ./User/example.o
  .text          0x0000000000000000        0x0 ./User/system_ch32v00x.o
  .data          0x0000000000000000        0x0 ./User/system_ch32v00x.o
  .bss           0x0000000000000000        0x0 ./User/system_ch32v00x.o
@@ -955,7 +955,7 @@ Linker script and memory map
 
 LOAD ./User/SSD1306.o
 LOAD ./User/ch32v00x_it.o
-LOAD ./User/main.o
+LOAD ./User/example.o
 LOAD ./User/system_ch32v00x.o
 LOAD ./Startup/startup_ch32v00x.o
 LOAD ./Peripheral/src/ch32v00x_adc.o
@@ -1057,7 +1057,7 @@ END GROUP
                 0x00000000000004e4        0x2 ./User/ch32v00x_it.o
                 0x00000000000004e4                HardFault_Handler
  .text.startup.main
-                0x00000000000004e6       0x46 ./User/main.o
+                0x00000000000004e6       0x46 ./User/example.o
                 0x00000000000004e6                main
  .text.SystemInit
                 0x000000000000052c      0x132 ./User/system_ch32v00x.o
@@ -1298,7 +1298,7 @@ OUTPUT(CH32V003F4P6-X-SSD1306.elf elf32-littleriscv)
 .debug_info     0x0000000000000000     0x8a70
  .debug_info    0x0000000000000000     0x172b ./User/SSD1306.o
  .debug_info    0x000000000000172b      0x962 ./User/ch32v00x_it.o
- .debug_info    0x000000000000208d      0xb55 ./User/main.o
+ .debug_info    0x000000000000208d      0xb55 ./User/example.o
  .debug_info    0x0000000000002be2      0xc94 ./User/system_ch32v00x.o
  .debug_info    0x0000000000003876       0x22 ./Startup/startup_ch32v00x.o
  .debug_info    0x0000000000003898     0x1034 ./Peripheral/src/ch32v00x_gpio.o
@@ -1310,7 +1310,7 @@ OUTPUT(CH32V003F4P6-X-SSD1306.elf elf32-littleriscv)
 .debug_abbrev   0x0000000000000000     0x1b35
  .debug_abbrev  0x0000000000000000      0x3cb ./User/SSD1306.o
  .debug_abbrev  0x00000000000003cb      0x1cf ./User/ch32v00x_it.o
- .debug_abbrev  0x000000000000059a      0x269 ./User/main.o
+ .debug_abbrev  0x000000000000059a      0x269 ./User/example.o
  .debug_abbrev  0x0000000000000803      0x2ee ./User/system_ch32v00x.o
  .debug_abbrev  0x0000000000000af1       0x12 ./Startup/startup_ch32v00x.o
  .debug_abbrev  0x0000000000000b03      0x309 ./Peripheral/src/ch32v00x_gpio.o
@@ -1321,7 +1321,7 @@ OUTPUT(CH32V003F4P6-X-SSD1306.elf elf32-littleriscv)
 
 .debug_loc      0x0000000000000000     0x18a1
  .debug_loc     0x0000000000000000      0x374 ./User/SSD1306.o
- .debug_loc     0x0000000000000374       0x2a ./User/main.o
+ .debug_loc     0x0000000000000374       0x2a ./User/example.o
  .debug_loc     0x000000000000039e       0x55 ./User/system_ch32v00x.o
  .debug_loc     0x00000000000003f3      0x5e2 ./Peripheral/src/ch32v00x_gpio.o
  .debug_loc     0x00000000000009d5      0x720 ./Peripheral/src/ch32v00x_i2c.o
@@ -1335,7 +1335,7 @@ OUTPUT(CH32V003F4P6-X-SSD1306.elf elf32-littleriscv)
  .debug_aranges
                 0x0000000000000078       0x28 ./User/ch32v00x_it.o
  .debug_aranges
-                0x00000000000000a0       0x20 ./User/main.o
+                0x00000000000000a0       0x20 ./User/example.o
  .debug_aranges
                 0x00000000000000c0       0x28 ./User/system_ch32v00x.o
  .debug_aranges
@@ -1354,7 +1354,7 @@ OUTPUT(CH32V003F4P6-X-SSD1306.elf elf32-littleriscv)
 .debug_ranges   0x0000000000000000      0x470
  .debug_ranges  0x0000000000000000       0xf8 ./User/SSD1306.o
  .debug_ranges  0x00000000000000f8       0x18 ./User/ch32v00x_it.o
- .debug_ranges  0x0000000000000110       0x10 ./User/main.o
+ .debug_ranges  0x0000000000000110       0x10 ./User/example.o
  .debug_ranges  0x0000000000000120       0x50 ./User/system_ch32v00x.o
  .debug_ranges  0x0000000000000170       0x28 ./Startup/startup_ch32v00x.o
  .debug_ranges  0x0000000000000198       0x88 ./Peripheral/src/ch32v00x_gpio.o
@@ -1363,45 +1363,45 @@ OUTPUT(CH32V003F4P6-X-SSD1306.elf elf32-littleriscv)
  .debug_ranges  0x0000000000000360       0xd0 ./Peripheral/src/ch32v00x_rcc.o
  .debug_ranges  0x0000000000000430       0x40 ./Debug/debug.o
 
-.debug_line     0x0000000000000000     0x54e9
+.debug_line     0x0000000000000000     0x54ec
  .debug_line    0x0000000000000000      0xc81 ./User/SSD1306.o
  .debug_line    0x0000000000000c81      0x2c8 ./User/ch32v00x_it.o
- .debug_line    0x0000000000000f49      0x479 ./User/main.o
- .debug_line    0x00000000000013c2      0x767 ./User/system_ch32v00x.o
- .debug_line    0x0000000000001b29      0x112 ./Startup/startup_ch32v00x.o
- .debug_line    0x0000000000001c3b      0xc8e ./Peripheral/src/ch32v00x_gpio.o
- .debug_line    0x00000000000028c9     0x1115 ./Peripheral/src/ch32v00x_i2c.o
- .debug_line    0x00000000000039de      0x46e ./Peripheral/src/ch32v00x_misc.o
- .debug_line    0x0000000000003e4c      0xe95 ./Peripheral/src/ch32v00x_rcc.o
- .debug_line    0x0000000000004ce1      0x808 ./Debug/debug.o
+ .debug_line    0x0000000000000f49      0x47c ./User/example.o
+ .debug_line    0x00000000000013c5      0x767 ./User/system_ch32v00x.o
+ .debug_line    0x0000000000001b2c      0x112 ./Startup/startup_ch32v00x.o
+ .debug_line    0x0000000000001c3e      0xc8e ./Peripheral/src/ch32v00x_gpio.o
+ .debug_line    0x00000000000028cc     0x1115 ./Peripheral/src/ch32v00x_i2c.o
+ .debug_line    0x00000000000039e1      0x46e ./Peripheral/src/ch32v00x_misc.o
+ .debug_line    0x0000000000003e4f      0xe95 ./Peripheral/src/ch32v00x_rcc.o
+ .debug_line    0x0000000000004ce4      0x808 ./Debug/debug.o
 
-.debug_str      0x0000000000000000     0x1741
+.debug_str      0x0000000000000000     0x1744
  .debug_str     0x0000000000000000      0x9cd ./User/SSD1306.o
                                         0xa73 (size before relaxing)
  .debug_str     0x00000000000009cd       0x34 ./User/ch32v00x_it.o
                                         0x5c7 (size before relaxing)
- .debug_str     0x0000000000000a01       0x57 ./User/main.o
-                                        0x6e5 (size before relaxing)
- .debug_str     0x0000000000000a58      0x12c ./User/system_ch32v00x.o
+ .debug_str     0x0000000000000a01       0x5a ./User/example.o
+                                        0x6e8 (size before relaxing)
+ .debug_str     0x0000000000000a5b      0x12c ./User/system_ch32v00x.o
                                         0x759 (size before relaxing)
- .debug_str     0x0000000000000b84       0x2a ./Startup/startup_ch32v00x.o
+ .debug_str     0x0000000000000b87       0x2a ./Startup/startup_ch32v00x.o
                                          0x65 (size before relaxing)
- .debug_str     0x0000000000000bae      0x219 ./Peripheral/src/ch32v00x_gpio.o
+ .debug_str     0x0000000000000bb1      0x219 ./Peripheral/src/ch32v00x_gpio.o
                                         0x954 (size before relaxing)
- .debug_str     0x0000000000000dc7      0x32d ./Peripheral/src/ch32v00x_i2c.o
+ .debug_str     0x0000000000000dca      0x32d ./Peripheral/src/ch32v00x_i2c.o
                                         0xac3 (size before relaxing)
- .debug_str     0x00000000000010f4      0x2dc ./Peripheral/src/ch32v00x_misc.o
+ .debug_str     0x00000000000010f7      0x2dc ./Peripheral/src/ch32v00x_misc.o
                                         0x91c (size before relaxing)
- .debug_str     0x00000000000013d0      0x210 ./Peripheral/src/ch32v00x_rcc.o
+ .debug_str     0x00000000000013d3      0x210 ./Peripheral/src/ch32v00x_rcc.o
                                         0x9c2 (size before relaxing)
- .debug_str     0x00000000000015e0      0x161 ./Debug/debug.o
+ .debug_str     0x00000000000015e3      0x161 ./Debug/debug.o
                                         0x912 (size before relaxing)
 
 .comment        0x0000000000000000       0x33
  .comment       0x0000000000000000       0x33 ./User/SSD1306.o
                                          0x34 (size before relaxing)
  .comment       0x0000000000000033       0x34 ./User/ch32v00x_it.o
- .comment       0x0000000000000033       0x34 ./User/main.o
+ .comment       0x0000000000000033       0x34 ./User/example.o
  .comment       0x0000000000000033       0x34 ./User/system_ch32v00x.o
  .comment       0x0000000000000033       0x34 ./Peripheral/src/ch32v00x_gpio.o
  .comment       0x0000000000000033       0x34 ./Peripheral/src/ch32v00x_i2c.o
@@ -1412,7 +1412,7 @@ OUTPUT(CH32V003F4P6-X-SSD1306.elf elf32-littleriscv)
 .debug_frame    0x0000000000000000      0x9f4
  .debug_frame   0x0000000000000000      0x17c ./User/SSD1306.o
  .debug_frame   0x000000000000017c       0x30 ./User/ch32v00x_it.o
- .debug_frame   0x00000000000001ac       0x2c ./User/main.o
+ .debug_frame   0x00000000000001ac       0x2c ./User/example.o
  .debug_frame   0x00000000000001d8       0x58 ./User/system_ch32v00x.o
  .debug_frame   0x0000000000000230      0x154 ./Peripheral/src/ch32v00x_gpio.o
  .debug_frame   0x0000000000000384      0x254 ./Peripheral/src/ch32v00x_i2c.o
