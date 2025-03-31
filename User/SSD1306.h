@@ -3,7 +3,7 @@
 *
 * SSD1306 Driver for CH32V00X
 * Created by Ign555
-* Version : v0.9 
+* Version : v1.0
 * File Creation : 30/03/2025
 *
 *
@@ -46,10 +46,10 @@
 
 //SSD1306 display mode
 #define SSD1306_DISPLAY_MODE_NORMAL 0xA4
-#define SSD1306_DISPLAY_MODE_INVERT 
+#define SSD1306_DISPLAY_MODE_INVERT 0xA5
 
 //SSD1306 display scrolling
-#define SSD1306_SCROLLING_ENABLE
+#define SSD1306_SCROLLING_ENABLE 0x2F
 #define SSD1306_SCROLLING_DISABLE 0x2E
 
 //SSD1306 set display start line
@@ -63,27 +63,38 @@
 
 //SSD1306 segment remap
 #define SSD1306_INVERSE_SCREEN_HORIZONTAL 0xA1
-#define SSD1306_INORMAL_SCREEN_HORIZONTAL 0xA0
+#define SSD1306_NORMAL_SCREEN_HORIZONTAL 0xA0
 #define SSD1306_INVERSE_SCREEN_VERTICAL 0xC8
-#define SSD1306_INORMAL_SCREEN_VERTICAL 0xC0
+#define SSD1306_NORMAL_SCREEN_VERTICAL 0xC0
 
-//SSD1306 hardware configuration
-//(To be add)
-
-//SSD1306 display settings value
+//SSD1306 display settings command value
 #define SSD1306_CHARGE_PUMP_SETTINGS 0x8D
 #define SSD1306_SET_MULTIPLEX_RATIO 0xA8
 #define SSD1306_SET_DISPLAY_OFFSET 0xD3
 #define SSD1306_SET_CLOCK_DIVIDE_RATIO 0xD5
 #define SSD1306_SET_ADDRESSING_MODE 0x20
 #define SSD1306_SET_CONTRAST 0x81
+#define SSD1306_SET_PRELOAD_DURATION 0xD9
+#define SSD1306_ADJUST_VCOMH_REGULATOR_OUTPUT 0xDB
+#define SSD1306_SET_HARDWARE_CONFIGURATION 0xDA
+
+//SSD1306 hardware configuration values
+#define SSD1306_SEQUENTIAL_COM_PIN_CONFIGURATION 0x02
+#define SSD1306_ALTERNATIVE_COM_PIN_CONFIGURATION 0x12
+#define SSD1306_DISABLE_LEFT_RIGHT_REMAP 0x02
+#define SSD1306_ENABLE_LEFT_RIGHT_REMAP 0x22
+
+//SSD1306 vcomh regulator output ( read datasheet for more details )
+#define SSD1306_VCOMH_ADJUST_1 0x00 //Vcomh = ~0.65 * VCC
+#define SSD1306_VCOMH_ADJUST_2 0x20 //Vcomh = ~0.77 * VCC
+#define SSD1306_VCOMH_ADJUST_3 0x30 //Vcomh = ~0.83 * VCC
 
 //SSD1306 constrast value
 #define SSD1306_CONSTRAST_LOW 0x00
 #define SSD1306_CONSTRAST_HIGH 0xFF
 
-//SSD1306 oscillator value (value to be add)
-#define SSD1306_OSCILLATOR_FRQ 0x80
+//SSD1306 oscillator value
+#define SSD1306_DEFAULT_OSCILLATOR_FRQ 0x80
 
 //SSD1306 height value
 #define SSD1306_DISPLAY_HEIGHT 0x3F //To check
@@ -125,7 +136,8 @@ void SSD1306_send_data(SSD1306 *display, uint8_t data);
 
 void SSD1306_draw_pixel(SSD1306 *display, uint8_t x, uint8_t y, uint8_t pixel_value);
 void SSD1306_clean(SSD1306 *display, uint8_t pixel_value);
-void SSD1306_blit_screen(SSD1306 *display);
+void SSD1306_set_constrast(SSD1306 *display, uint8_t contrast);
+void SSD1306_render_screen(SSD1306 *display);
 
 /******************************SSD1306 private functions******************************/
 

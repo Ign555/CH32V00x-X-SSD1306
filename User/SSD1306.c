@@ -3,7 +3,7 @@
 *
 * SSD1306 Driver for CH32V00X
 * Created by Ign555
-* Version : v0.9 
+* Version : v1.0 
 * File Creation : 30/03/2025
 *
 *
@@ -67,15 +67,16 @@ SSD1306 SSD1306_init(uint8_t addr, uint8_t screen_height){
     display.h = screen_height;
 
     SSD1306_send_command(&display, SSD1306_TURN_OFF_SCREEN);
-    SSD1306_send_command(&display, SSD1306_SET_CLOCK_DIVIDE_RATIO);SSD1306_send_command(&display, SSD1306_OSCILLATOR_FRQ);
+    SSD1306_send_command(&display, SSD1306_SET_CLOCK_DIVIDE_RATIO);SSD1306_send_command(&display, SSD1306_DEFAULT_OSCILLATOR_FRQ); //To add more values
     SSD1306_send_command(&display, SSD1306_SET_MULTIPLEX_RATIO);SSD1306_send_command(&display, SSD1306_DISPLAY_HEIGHT);
     SSD1306_send_command(&display, SSD1306_SET_DISPLAY_OFFSET);SSD1306_send_command(&display, SSD1306_NO_OFFSET); //No offset
     SSD1306_send_command(&display, SSD1306_START_LINE_0); //Set start line at 0 
     SSD1306_send_command(&display, SSD1306_SET_ADDRESSING_MODE);SSD1306_send_command(&display, SSD1306_HORIZONTAL_ADDRESSING_MODE);
     SSD1306_send_command(&display, SSD1306_CHARGE_PUMP_SETTINGS);SSD1306_send_command(&display, SSD1306_ENABLE_CHARGE_PUMP);
-
+    SSD1306_send_command(&display, SSD1306_SET_HARDWARE_CONFIGURATION);SSD1306_send_command(&display, SSD1306_ALTERNATIVE_COM_PIN_CONFIGURATION);
     SSD1306_send_command(&display, SSD1306_SET_CONTRAST);SSD1306_send_command(&display, SSD1306_CONSTRAST_LOW);
-    //I have things to add here
+    SSD1306_send_command(&display, SSD1306_SET_PRELOAD_DURATION);SSD1306_send_command(&display, 0x11); //One display clock period for each preloading phase
+    SSD1306_send_command(&display, SSD1306_ADJUST_VCOMH_REGULATOR_OUTPUT);SSD1306_send_command(&display, SSD1306_VCOMH_ADJUST_1); //The lowest vcomh 
     SSD1306_send_command(&display, SSD1306_DISPLAY_MODE_NORMAL);
     SSD1306_send_command(&display, SSD1306_SCROLLING_DISABLE);
     SSD1306_send_command(&display, SSD1306_TURN_ON_SCREEN);
@@ -153,7 +154,8 @@ void SSD1306_draw_pixel(SSD1306 *display, uint8_t x, uint8_t y, uint8_t pixel_va
 }
 
 void SSD1306_clean(SSD1306 *display, uint8_t pixel_value){
-
+    
+    //Fill the screen buffer with bit 0 ( black ) or 1 ( display color )
     for(uint8_t i = 0; i < SSD1306_PAGES; i++){
         for(uint8_t j = 0; j < SSD1306_COLUMNS; j++){
             display->screen_buffer[i*SSD1306_COLUMNS + j] = (pixel_value) ? 0xFF : 0x00;
@@ -162,12 +164,20 @@ void SSD1306_clean(SSD1306 *display, uint8_t pixel_value){
     
 }
 
-void SSD1306_blit_screen(SSD1306 *display){
+void SSD1306_set_constrast(SSD1306 *display, uint8_t contrast){
 
+    SSD1306_send_command(display, SSD1306_SET_CONTRAST);
+    SSD1306_send_command(display, contrast);
+
+}
+
+void SSD1306_render_screen(SSD1306 *display){
+
+    //Fill the screen memory with the screen_buff array
     for(uint8_t i = 0; i < SSD1306_PAGES; i++){
         for(uint8_t j = 0; j < SSD1306_COLUMNS; j++){
-            _SSD1306_set_page(display, i);
-            _SSD1306_set_column(display, j);
+            _SSD1306_set_page(display, i); //Place the memory cursor on a "page", for more information, please look in datasheet
+            _SSD1306_set_column(display, j); //Place the memory cursor on a "column", for more information, please look in datasheet
             SSD1306_send_data(display, display->screen_buffer[i*SSD1306_COLUMNS + j]);
         }
     }
