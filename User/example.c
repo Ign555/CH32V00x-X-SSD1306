@@ -4,6 +4,7 @@
 int main(void){
 
     SSD1306 ssd;
+    uint8_t i = 0;
 
     //Init 
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
@@ -17,11 +18,25 @@ int main(void){
     SSD1306_set_constrast(&ssd, 0xB4);
     SSD1306_render_screen(&ssd);
 
+    SSD1306_clean(&ssd, 0);
+    SSD1306_render_screen(&ssd);
+    SSD1306_clean(&ssd, 1);
+    SSD1306_render_screen(&ssd);
+    
     while(1){
-        for(uint8_t i = 0 ; i <= 255 ; i++){
+        SSD1306_clean(&ssd, 0);
+        SSD1306_render_screen(&ssd);
+        SSD1306_clean(&ssd, 1);
+        SSD1306_render_screen(&ssd);
+        /*
+        for(i = 0 ; i < 255 ; i++){
             SSD1306_set_constrast(&ssd, i);
-            Delay_Ms(100);
+            Delay_Ms(10);
         }
+        for(uint8_t j = 254 ; j > 0 ; j--){
+            SSD1306_set_constrast(&ssd, j);
+            Delay_Ms(10);
+        }*/
     }
 
 }
