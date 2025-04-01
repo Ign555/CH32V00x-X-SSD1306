@@ -96,8 +96,9 @@
 #define SSD1306_DEFAULT_OSCILLATOR_FRQ 0x80
 #define SSD1306_MAX_OSCILLATOR_FRQ 0xF0
 
-//SSD1306 height value
-#define SSD1306_DISPLAY_HEIGHT 0x3F //To check
+//SSD1306 height value (multiplex)
+#define SSD1306_DISPLAY_HEIGHT_64 0x3F
+#define SSD1306_DISPLAY_HEIGHT_32 0x1F 
 
 //SSD1306 vram address selection
 #define SSD1306_SET_COLUMN 0x21

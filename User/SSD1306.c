@@ -68,7 +68,7 @@ SSD1306 SSD1306_init(uint8_t addr, uint8_t screen_height){
 
     SSD1306_send_command(&display, SSD1306_TURN_OFF_SCREEN);
     SSD1306_send_command(&display, SSD1306_SET_CLOCK_DIVIDE_RATIO);SSD1306_send_command(&display, SSD1306_DEFAULT_OSCILLATOR_FRQ); //To add more values
-    SSD1306_send_command(&display, SSD1306_SET_MULTIPLEX_RATIO);SSD1306_send_command(&display, 0x3F);
+    SSD1306_send_command(&display, SSD1306_SET_MULTIPLEX_RATIO);SSD1306_send_command(&display, SSD1306_DISPLAY_HEIGHT_64);
     SSD1306_send_command(&display, SSD1306_SET_DISPLAY_OFFSET);SSD1306_send_command(&display, SSD1306_NO_OFFSET); //No offset
     SSD1306_send_command(&display, SSD1306_START_LINE_0); //Set start line at 0 
     SSD1306_send_command(&display, SSD1306_SET_ADDRESSING_MODE);SSD1306_send_command(&display, SSD1306_HORIZONTAL_ADDRESSING_MODE);
@@ -190,7 +190,7 @@ void _SSD1306_set_page(SSD1306 *display, uint8_t page){
 
     SSD1306_send_command(display, SSD1306_SET_PAGE);
     SSD1306_send_command(display, page);
-    SSD1306_send_command(display, SSD1306_PAGES-1);
+    SSD1306_send_command(display, SSD1306_PAGES/2-1);
 
 }
 
