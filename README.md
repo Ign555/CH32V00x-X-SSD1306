@@ -34,7 +34,6 @@ Have to be write
 
 Please, if you have any suggest/question contact me on contact@ingeno.fr
 ```
-/*
                                                                                                     
                                                                                                     
                                                                        .                            
@@ -89,5 +88,4 @@ Please, if you have any suggest/question contact me on contact@ingeno.fr
                           .                                                                         
      .                                                                   .                          
                                                                          .      .                   
-*/
 ```
