@@ -68,12 +68,12 @@ SSD1306 SSD1306_init(uint8_t addr, uint8_t screen_height){
 
     SSD1306_send_command(&display, SSD1306_TURN_OFF_SCREEN);
     SSD1306_send_command(&display, SSD1306_SET_CLOCK_DIVIDE_RATIO);SSD1306_send_command(&display, SSD1306_DEFAULT_OSCILLATOR_FRQ); //To add more values
-    SSD1306_send_command(&display, SSD1306_SET_MULTIPLEX_RATIO);SSD1306_send_command(&display, SSD1306_DISPLAY_HEIGHT_64);
+    SSD1306_send_command(&display, SSD1306_SET_MULTIPLEX_RATIO);SSD1306_send_command(&display, SSD1306_DISPLAY_HEIGHT_32);
     SSD1306_send_command(&display, SSD1306_SET_DISPLAY_OFFSET);SSD1306_send_command(&display, SSD1306_NO_OFFSET); //No offset
     SSD1306_send_command(&display, SSD1306_START_LINE_0); //Set start line at 0 
     SSD1306_send_command(&display, SSD1306_SET_ADDRESSING_MODE);SSD1306_send_command(&display, SSD1306_HORIZONTAL_ADDRESSING_MODE);
     SSD1306_send_command(&display, SSD1306_CHARGE_PUMP_SETTINGS);SSD1306_send_command(&display, SSD1306_ENABLE_CHARGE_PUMP);
-    SSD1306_send_command(&display, SSD1306_SET_HARDWARE_CONFIGURATION);SSD1306_send_command(&display, SSD1306_ALTERNATIVE_COM_PIN_CONFIGURATION);
+    SSD1306_send_command(&display, SSD1306_SET_HARDWARE_CONFIGURATION);SSD1306_send_command(&display, SSD1306_SEQUENTIAL_COM_PIN_CONFIGURATION);
     SSD1306_send_command(&display, SSD1306_SET_CONTRAST);SSD1306_send_command(&display, SSD1306_CONSTRAST_LOW); //Set min constrast
     SSD1306_send_command(&display, SSD1306_SET_PRELOAD_DURATION);SSD1306_send_command(&display, 0x11); //One display clock period for each preloading phase
     SSD1306_send_command(&display, SSD1306_ADJUST_VCOMH_REGULATOR_OUTPUT);SSD1306_send_command(&display, SSD1306_VCOMH_ADJUST_1); //The lowest vcomh 
