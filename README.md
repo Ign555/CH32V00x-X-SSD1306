@@ -33,7 +33,7 @@ Have to be write
 * Add basic functions for SSD1306 128*32
 
 Please, if you have any suggest/question contact me on contact@ingeno.fr
-
+```
 /*
                                                                                                     
                                                                                                     
@@ -90,3 +90,4 @@ Please, if you have any suggest/question contact me on contact@ingeno.fr
      .                                                                   .                          
                                                                          .      .                   
 */
+```
