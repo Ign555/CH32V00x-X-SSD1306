@@ -4,8 +4,8 @@ This library is provided for MountRiver studio IDE. You can use it where and whe
 Please, if you use it, do not remove my credits.
 
 ## Install
-In order to install this library, just put the source files into your MountRiver studio project.
-You can both put the headers ( .h ) and the sources ( .c ) into the "User" sub-directory .
+In order to install this library, just put the source files into your MountRiver studio project.  
+You can both put the headers ( .h ) and the sources ( .c ) into the "User" sub-directory.  
 
 ## Hardware specification
 
