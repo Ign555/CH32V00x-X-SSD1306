@@ -17,7 +17,7 @@ int main(void){
     SSD1306_clean(&ssd, 0);
     SSD1306_set_constrast(&ssd, 0xB4);
     SSD1306_render_screen(&ssd);
-
+    
     while(1){
         
         for(i = 0 ; i < 255 ; i++){
