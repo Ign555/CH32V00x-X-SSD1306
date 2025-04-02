@@ -19,7 +19,7 @@ int main(void){
     SSD1306_render_screen(&ssd);
 
     while(1){
-        /*
+        
         for(i = 0 ; i < 255 ; i++){
             SSD1306_set_constrast(&ssd, i);
             Delay_Ms(5);
@@ -28,7 +28,7 @@ int main(void){
             SSD1306_set_constrast(&ssd, j);
             Delay_Ms(5);
         }
-        */
+        
     }
 
 }
