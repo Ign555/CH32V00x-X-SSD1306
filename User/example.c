@@ -15,6 +15,10 @@ int main(void){
     I2C_init_for_SSD1306();
     ssd = SSD1306_init(0x3C, SSD1306_64_PX);
     SSD1306_clean(&ssd, 0);
+    for( i = 0; i < SSD1306_64_PX; i++){
+
+        SSD1306_draw_pixel(&ssd, 0, i, 1);
+    }
     SSD1306_set_constrast(&ssd, 0xB4);
     SSD1306_render_screen(&ssd);
     

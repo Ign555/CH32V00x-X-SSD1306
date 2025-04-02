@@ -30,6 +30,7 @@
 //SSD1306 pages and column
 #define SSD1306_COLUMNS 128
 #define SSD1306_PAGES 8
+#define SSD1306_NOMBER_OF_PIXEL_IN_A_PAGE 8
 
 //SSD1306 screen height
 #define SSD1306_16_PX 16
@@ -143,7 +144,7 @@ void SSD1306_render_screen(SSD1306 *display);
 void _SSD1306_set_page(SSD1306 *display, uint8_t page);
 void _SSD1306_set_column(SSD1306 *display, uint8_t column);
 
-uint8_t _SSD1306_get_page(SSD1306 *display, uint8_t y);
+uint8_t _SSD1306_get_page(uint8_t y);
 
 #endif
 

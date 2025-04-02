@@ -74,7 +74,7 @@ SSD1306 SSD1306_init(uint8_t addr, uint8_t screen_height){
     SSD1306_send_command(&display, SSD1306_START_LINE_0); //Set start line at 0 
     SSD1306_send_command(&display, SSD1306_SET_ADDRESSING_MODE);SSD1306_send_command(&display, SSD1306_HORIZONTAL_ADDRESSING_MODE);
     SSD1306_send_command(&display, SSD1306_CHARGE_PUMP_SETTINGS);SSD1306_send_command(&display, SSD1306_ENABLE_CHARGE_PUMP);
-    SSD1306_send_command(&display, SSD1306_SET_HARDWARE_CONFIGURATION);SSD1306_send_command(&display, (screen_height == 32) ? SSD1306_SEQUENTIAL_COM_PIN_CONFIGURATION : SSD1306_ALTERNATIVE_COM_PIN_CONFIGURATION); //ALTERNATE FOR 64 and SEQ FOR 32??
+    SSD1306_send_command(&display, SSD1306_SET_HARDWARE_CONFIGURATION);SSD1306_send_command(&display, (screen_height == SSD1306_32_PX) ? SSD1306_SEQUENTIAL_COM_PIN_CONFIGURATION : SSD1306_ALTERNATIVE_COM_PIN_CONFIGURATION); //SEQ FOR 32 and ALTERNATES FOR 64
     SSD1306_send_command(&display, SSD1306_SET_CONTRAST);SSD1306_send_command(&display, SSD1306_CONSTRAST_LOW); //Set min constrast
     SSD1306_send_command(&display, SSD1306_SET_PRELOAD_DURATION);SSD1306_send_command(&display, 0x11); //One display clock period for each preloading phase
     SSD1306_send_command(&display, SSD1306_ADJUST_VCOMH_REGULATOR_OUTPUT);SSD1306_send_command(&display, SSD1306_VCOMH_ADJUST_1); //The lowest vcomh 
@@ -146,14 +146,8 @@ void SSD1306_send_data(SSD1306 *display, uint8_t data){
 
 void SSD1306_draw_pixel(SSD1306 *display, uint8_t x, uint8_t y, uint8_t pixel_value){
 
-    //$May be I could find a better way$
-    display->screen_buffer[_SSD1306_get_page(display, y)*SSD1306_COLUMNS + x] |= 1 << y % SSD1306_PAGES;
-    /*
-    if(display->h == SSD1306_64_PX){
-        display->screen_buffer[_SSD1306_get_page(display, y)*SSD1306_COLUMNS + x] |= 1 << y % SSD1306_PAGES;
-    }else if(display->h == SSD1306_32_PX){
-        display->screen_buffer[_SSD1306_get_page(display, y)*SSD1306_COLUMNS + x] |= 1 << (y*2) % (display->h/SSD1306_PAGES);
-    }*/
+    display->screen_buffer[_SSD1306_get_page(y)*SSD1306_COLUMNS + x] |= 1 << (y % SSD1306_NOMBER_OF_PIXEL_IN_A_PAGE);
+
 }
 
 void SSD1306_clean(SSD1306 *display, uint8_t pixel_value){
@@ -177,7 +171,7 @@ void SSD1306_set_constrast(SSD1306 *display, uint8_t contrast){
 void SSD1306_render_screen(SSD1306 *display){
 
     //Fill the screen memory with the screen_buff array
-    for(uint8_t i = 0; i < display->h / SSD1306_PAGES; i++){
+    for(uint8_t i = 0; i < display->h / SSD1306_PAGES ; i++){
         for(uint8_t j = 0; j < SSD1306_COLUMNS; j++){
             _SSD1306_set_page(display, i); //Place the memory cursor on a "page", for more information, please look in datasheet
             _SSD1306_set_column(display, j); //Place the memory cursor on a "column", for more information, please look in datasheet
@@ -205,9 +199,9 @@ void _SSD1306_set_column(SSD1306 *display, uint8_t column){
 
 }
 
-uint8_t _SSD1306_get_page(SSD1306 *display, uint8_t y){
+uint8_t _SSD1306_get_page(uint8_t y){
 
-    return (y)/(display->h/SSD1306_PAGES);
+    return y/SSD1306_NOMBER_OF_PIXEL_IN_A_PAGE;
 
 }
 
