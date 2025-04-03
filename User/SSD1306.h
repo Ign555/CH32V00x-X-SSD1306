@@ -3,7 +3,7 @@
 *
 * SSD1306 Driver for CH32V00X
 * Created by Ign555
-* Version : v1.0
+* Version : v1.2
 * File Creation : 30/03/2025
 *
 *

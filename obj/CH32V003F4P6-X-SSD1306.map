@@ -35,6 +35,16 @@ Discarded input sections
                 0x0000000000000000       0x1a ./User/SSD1306.o
  .text._SSD1306_get_page
                 0x0000000000000000        0x4 ./User/SSD1306.o
+ .text          0x0000000000000000        0x0 ./User/SSD1306_writer.o
+ .data          0x0000000000000000        0x0 ./User/SSD1306_writer.o
+ .bss           0x0000000000000000        0x0 ./User/SSD1306_writer.o
+ .debug_info    0x0000000000000000      0x942 ./User/SSD1306_writer.o
+ .debug_abbrev  0x0000000000000000      0x1b1 ./User/SSD1306_writer.o
+ .debug_aranges
+                0x0000000000000000       0x18 ./User/SSD1306_writer.o
+ .debug_line    0x0000000000000000      0x2ee ./User/SSD1306_writer.o
+ .debug_str     0x0000000000000000      0x5b6 ./User/SSD1306_writer.o
+ .comment       0x0000000000000000       0x34 ./User/SSD1306_writer.o
  .text          0x0000000000000000        0x0 ./User/ch32v00x_it.o
  .data          0x0000000000000000        0x0 ./User/ch32v00x_it.o
  .bss           0x0000000000000000        0x0 ./User/ch32v00x_it.o
@@ -952,6 +962,7 @@ RAM              0x0000000020000000 0x0000000000000800 xrw
 Linker script and memory map
 
 LOAD ./User/SSD1306.o
+LOAD ./User/SSD1306_writer.o
 LOAD ./User/ch32v00x_it.o
 LOAD ./User/example.o
 LOAD ./User/system_ch32v00x.o

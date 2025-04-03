@@ -727,7 +727,7 @@ Disassembly of section .text:
  532:	225d                	jal	6d8 <SystemCoreClockUpdate>
  534:	2bbd                	jal	ab2 <Delay_Init>
  536:	3911                	jal	14a <I2C_init_for_SSD1306>
- 538:	04000593          	li	a1,64
+ 538:	02000593          	li	a1,32
  53c:	03c00513          	li	a0,60
  540:	3381                	jal	280 <SSD1306_init>
  542:	c02a                	sw	a0,0(sp)
@@ -743,7 +743,7 @@ Disassembly of section .text:
  556:	3dd1                	jal	42a <SSD1306_draw_pixel>
  558:	0405                	addi	s0,s0,1
  55a:	0ff47413          	andi	s0,s0,255
- 55e:	04000793          	li	a5,64
+ 55e:	02000793          	li	a5,32
  562:	fef416e3          	bne	s0,a5,54e <main+0x26>
  566:	850a                	mv	a0,sp
  568:	0b400593          	li	a1,180

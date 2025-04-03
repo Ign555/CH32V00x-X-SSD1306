@@ -6,18 +6,21 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../User/SSD1306.c \
+../User/SSD1306_writer.c \
 ../User/ch32v00x_it.c \
 ../User/example.c \
 ../User/system_ch32v00x.c 
 
 C_DEPS += \
 ./User/SSD1306.d \
+./User/SSD1306_writer.d \
 ./User/ch32v00x_it.d \
 ./User/example.d \
 ./User/system_ch32v00x.d 
 
 OBJS += \
 ./User/SSD1306.o \
+./User/SSD1306_writer.o \
 ./User/ch32v00x_it.o \
 ./User/example.o \
 ./User/system_ch32v00x.o 
