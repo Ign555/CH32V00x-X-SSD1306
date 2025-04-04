@@ -34,4 +34,8 @@ Have to be write
 31/03/2025 : CH32V003F4P6-X-SSD1306 v1.0 release  
 * Add basic functions for SSD1306 128*32
 
+### License
+
+This library is provided under BSD license.
+
 Please, if you have any suggest/question contact me on contact@ingeno.fr
