@@ -26,6 +26,8 @@ Have to be write
 
 ## Changelog
 
+04/04/2025 : Add ```LICENSE.md```   
+
 02/04/2025 : CH32V003F4P6-X-SSD1306 v1.1 release  
 * The driver can now be use with SSD1306 128*64 format
 
