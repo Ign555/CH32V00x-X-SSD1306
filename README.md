@@ -36,7 +36,7 @@ Have to be write
 
 ### License
 
-This library is provided under Boost Software License 1.0. 
+This library is provided under BSD 3-Clause License. 
 For more information, please look in LICENSE.md 
 
 Please, if you have any suggest/question contact me on contact@ingeno.fr
