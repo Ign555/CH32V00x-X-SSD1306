@@ -1,6 +1,12 @@
-# CH32V003F4P6-X-SSD1306 library guide
+# CH32V00x-X-SSD1306 library guide
 ## Information 
 This library is provided for MountRiver studio IDE. You can use it where and when even you want.  
+The code has been developped for CH32V00x range that include : 
+*CH32V002
+*CH32V003
+*CH32V006
+*CH32V007
+
 Please, if you use it, do not remove my credits.
 
 ## Install
