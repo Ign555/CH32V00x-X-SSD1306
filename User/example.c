@@ -1,5 +1,9 @@
 #include "debug.h"
 #include "SSD1306.h"
+#include "SSD1306_writer.h"
+
+extern const SSD1306_FONT test[1028];
+
 
 int main(void){
 
@@ -10,18 +14,25 @@ int main(void){
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
     SystemCoreClockUpdate();
     Delay_Init();
-    
+
+    USART_Printf_Init(115200);
+    printf("start");
+
     //SSD1306 init
     I2C_init_for_SSD1306();
     ssd = SSD1306_init(0x3C, SSD1306_32_PX);
     SSD1306_clean(&ssd, 0);
     for( i = 0; i < SSD1306_32_PX; i++){
 
-        SSD1306_draw_pixel(&ssd, 0, i, 1);
+        SSD1306_draw_pixel(&ssd, 1, i, 1);
     }
+    SSD1306_draw_pixel(&ssd, 1, 0, 0);
     SSD1306_set_constrast(&ssd, 0xB4);
     SSD1306_render_screen(&ssd);
-    
+ 
+    SSD1306_write(&ssd, test, "+- !01'#/%\0", 1, 1);
+    SSD1306_render_screen(&ssd);
+
     while(1){
         
         for(i = 0 ; i < 255 ; i++){

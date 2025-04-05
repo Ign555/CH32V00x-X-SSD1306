@@ -139,13 +139,6 @@ void SSD1306_clean(SSD1306 *display, uint8_t pixel_value);
 void SSD1306_set_constrast(SSD1306 *display, uint8_t contrast);
 void SSD1306_render_screen(SSD1306 *display);
 
-/******************************SSD1306 private functions******************************/
-
-void _SSD1306_set_page(SSD1306 *display, uint8_t page);
-void _SSD1306_set_column(SSD1306 *display, uint8_t column);
-
-uint8_t _SSD1306_get_page(uint8_t y);
-
 #endif
 
 /*

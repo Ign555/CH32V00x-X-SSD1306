@@ -26,6 +26,8 @@ Have to be write
 
 ## Changelog
 
+05/04/2025 : Add a writer function and started to implement a text font  
+
 04/04/2025 : Add ```LICENSE.md```   
 
 02/04/2025 : CH32V003F4P6-X-SSD1306 v1.1 release  
@@ -35,6 +37,11 @@ Have to be write
 
 31/03/2025 : CH32V003F4P6-X-SSD1306 v1.0 release  
 * Add basic functions for SSD1306 128*32
+
+## To do list
+
+* Finish the text font
+* Add multiple bit format for font
 
 ### License
 

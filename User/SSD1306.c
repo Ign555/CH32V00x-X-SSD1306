@@ -92,6 +92,30 @@ void SSD1306_destroy(SSD1306 *display){
 
 }
 
+/******************************SSD1306 private functions******************************/
+
+static void _SSD1306_set_page(SSD1306 *display, uint8_t page){
+
+    SSD1306_send_command(display, SSD1306_SET_PAGE);
+    SSD1306_send_command(display, page);
+    SSD1306_send_command(display, SSD1306_PAGES/2-1);
+
+}
+
+static void _SSD1306_set_column(SSD1306 *display, uint8_t column){
+
+    SSD1306_send_command(display, SSD1306_SET_COLUMN);
+    SSD1306_send_command(display, column);
+    SSD1306_send_command(display, SSD1306_COLUMNS-1);
+
+}
+
+static uint8_t _SSD1306_get_page(uint8_t y){
+
+    return y/SSD1306_NOMBER_OF_PIXEL_IN_A_PAGE;
+
+}
+
 /******************************SSD1306 basic functions******************************/
 
 void SSD1306_send_command(SSD1306 *display, uint8_t command){
@@ -146,7 +170,11 @@ void SSD1306_send_data(SSD1306 *display, uint8_t data){
 
 void SSD1306_draw_pixel(SSD1306 *display, uint8_t x, uint8_t y, uint8_t pixel_value){
 
-    display->screen_buffer[_SSD1306_get_page(y)*SSD1306_COLUMNS + x] |= 1 << (y % SSD1306_NOMBER_OF_PIXEL_IN_A_PAGE);
+    if(pixel_value){
+        display->screen_buffer[_SSD1306_get_page(y)*SSD1306_COLUMNS + x] |= 1 << (y % SSD1306_NOMBER_OF_PIXEL_IN_A_PAGE);
+    }else{
+        display->screen_buffer[_SSD1306_get_page(y)*SSD1306_COLUMNS + x] &= ~(1 << (y % SSD1306_NOMBER_OF_PIXEL_IN_A_PAGE));
+    }
 
 }
 
@@ -179,30 +207,6 @@ void SSD1306_render_screen(SSD1306 *display){
         }
     }
     
-}
-
-/******************************SSD1306 private functions******************************/
-
-void _SSD1306_set_page(SSD1306 *display, uint8_t page){
-
-    SSD1306_send_command(display, SSD1306_SET_PAGE);
-    SSD1306_send_command(display, page);
-    SSD1306_send_command(display, SSD1306_PAGES/2-1);
-
-}
-
-void _SSD1306_set_column(SSD1306 *display, uint8_t column){
-
-    SSD1306_send_command(display, SSD1306_SET_COLUMN);
-    SSD1306_send_command(display, column);
-    SSD1306_send_command(display, SSD1306_COLUMNS-1);
-
-}
-
-uint8_t _SSD1306_get_page(uint8_t y){
-
-    return y/SSD1306_NOMBER_OF_PIXEL_IN_A_PAGE;
-
 }
 
 /*
