@@ -34,7 +34,7 @@ void I2C_init_for_SSD1306(){
     //I2C Init
     I2C_InitTypeDef i2c = {0}; //A structure to initialise I2C
     i2c.I2C_Mode = I2C_Mode_I2C; 
-    i2c.I2C_ClockSpeed = 100000; //Set communication frequency at 400 kHz
+    i2c.I2C_ClockSpeed = 400000; //Set communication frequency at 400 kHz
     i2c.I2C_DutyCycle = I2C_DutyCycle_16_9; //Set the sck signal duty cycle to 16:9
     i2c.I2C_Ack = I2C_Ack_Enable; //Enable Ack
     i2c.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit; //Use the 7 bits address mode ( simple mode )
@@ -68,7 +68,7 @@ SSD1306 SSD1306_init(uint8_t addr, uint8_t screen_height){
     display.h = screen_height;
 
     SSD1306_send_command(&display, SSD1306_TURN_OFF_SCREEN);
-    SSD1306_send_command(&display, SSD1306_SET_CLOCK_DIVIDE_RATIO);SSD1306_send_command(&display, SSD1306_DEFAULT_OSCILLATOR_FRQ); //To add more values
+    SSD1306_send_command(&display, SSD1306_SET_CLOCK_DIVIDE_RATIO);SSD1306_send_command(&display, SSD1306_MAX_OSCILLATOR_FRQ); //To add more values
     SSD1306_send_command(&display, SSD1306_SET_MULTIPLEX_RATIO);SSD1306_send_command(&display, screen_height-1); //Set screen height ( edit multiplex ratio )
     SSD1306_send_command(&display, SSD1306_SET_DISPLAY_OFFSET);SSD1306_send_command(&display, SSD1306_NO_OFFSET); //No offset
     SSD1306_send_command(&display, SSD1306_START_LINE_0); //Set start line at 0 
