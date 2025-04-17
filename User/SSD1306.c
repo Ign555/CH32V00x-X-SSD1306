@@ -170,6 +170,8 @@ void SSD1306_send_data(SSD1306 *display, uint8_t data){
 
 void SSD1306_draw_pixel(SSD1306 *display, uint8_t x, uint8_t y, uint8_t pixel_value){
 
+    if(y >= display->h || x >= SSD1306_COLUMNS)return; //Do not draw pixel if it include a buffer overflow
+
     if(pixel_value){
         display->screen_buffer[_SSD1306_get_page(y)*SSD1306_COLUMNS + x] |= 1 << (y % SSD1306_NOMBER_OF_PIXEL_IN_A_PAGE);
     }else{

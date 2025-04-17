@@ -13,7 +13,7 @@ Please, if you use it, do not remove my credits.
 In order to install this library, just put the source files into your MountRiver studio project.  
 You can both put the headers ```( .h )``` and the sources ```( .c )``` into the "User" sub-directory.  
 
-## Hardware specification
+## Hardware specifications
 
 You can find the datasheet there : https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf  
 
@@ -48,7 +48,9 @@ Have to be write
 
 ## To do list
 
-* Add multiple bit format for font
+* Add multiple bit format for font  
+* Add image drawing  
+* Create tools to enhance the ergonomics
 
 ### License
 
