@@ -4,19 +4,6 @@
 
 extern const SSD1306_FONT test[1028];
 int w=0;
-void change(SSD1306 *ssd){
-    if(w%2){
-        SSD1306_clean(ssd, 0);
-        SSD1306_write(ssd, test, "!\"#$%&'()*+'-./012345\0", 0, 0);
-        SSD1306_write(ssd, test, "6789:;<=>?@ABCDEFGHIJ\0", 0, 8);
-        SSD1306_write(ssd, test, "KLMNOPQRSTUVWXYZ[\\]^_\0", 0, 16);
-        SSD1306_write(ssd, test, "`abcdefghijklmnopqrst\0", 0, 24);
-    }else{
-        SSD1306_clean(ssd, 0);
-        SSD1306_write(ssd, test, "uvwxyz{|}~\0", 0, 0);
-    }
-    w++;
-}
 
 int main(void){
 
@@ -41,7 +28,9 @@ int main(void){
     SSD1306_render_screen(&ssd);
 
     while(1){
-        change(&ssd);
+        SSD1306_write(&ssd, test, "Making font", 0, 0);
+        SSD1306_write(&ssd, test, "is not funny", 0, 9);
+        SSD1306_write(&ssd, test, "uvwxyz", 0, 20);
         SSD1306_render_screen(&ssd);
         for(i = 0 ; i < 255 ; i++){
             SSD1306_set_constrast(&ssd, i);
