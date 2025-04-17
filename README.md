@@ -32,6 +32,8 @@ Have to be write
 
 ## Changelog
 
+17/04/2025 : End the test font  
+
 05/04/2025 : Add a writer function and started to implement a text font  
 
 04/04/2025 : Add ```LICENSE.md```   
@@ -46,7 +48,6 @@ Have to be write
 
 ## To do list
 
-* Finish the text font
 * Add multiple bit format for font
 
 ### License
