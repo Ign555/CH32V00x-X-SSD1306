@@ -36,7 +36,7 @@ void SSD1306_draw_char(SSD1306 *display, const SSD1306_FONT font[1028], char c, 
     //Save the character's pixels into the screen buffer
     for(uint8_t i = 0; i < font[FONT_H_INDEX]; i++){
         for(uint8_t j = 0; j < font[FONT_W_INDEX]; j++){
-            SSD1306_draw_pixel(display, x + j, y + i, ( font[c*font[FONT_H_INDEX]+ i + FONT_METADATA_OFFSET] >> j )  & 0x01 );
+            SSD1306_draw_pixel(display, x + j, y + i, ( font[c*font[FONT_H_INDEX] + i*(FONT_W_INDEX/BIT_IN_SSD1306_FONT + 1) + j/BIT_IN_SSD1306_FONT + FONT_METADATA_OFFSET] >> j )  & 0x01 );
         }
     }
 

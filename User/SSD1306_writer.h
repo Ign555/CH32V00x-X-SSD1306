@@ -29,6 +29,7 @@
 #define FONT_H_INDEX 1
 #define FONT_W_INDEX 2
 #define BIT_FORMAT_INDEX 3
+#define BIT_IN_SSD1306_FONT 8
 
 /****************************************************************
 *

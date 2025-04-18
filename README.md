@@ -30,7 +30,17 @@ That's mean you have to connect your display on the PC1 ```( SDA )``` and PC2 sc
 
 Have to be write 
 
+## Tools 
+
+In order to enhance my library's ergonomics, I made a python application that provide multiple solutions to make font and create image for the display. 
+
+This application should be released in the same time as the version 1.2 of my library.  
+
+You can find the [repo here](https://github.com/Ign555/SSD1306-convert-tool)  
+
 ## Changelog
+
+18/04/2025 : Add multiple bit format ( multiple font size )  
 
 17/04/2025 : End the test font  
 
@@ -48,9 +58,8 @@ Have to be write
 
 ## To do list
 
-* Add multiple bit format for font  
+* Test multiple font size
 * Add image drawing  
-* Create tools to enhance the ergonomics
 
 ### License
 
