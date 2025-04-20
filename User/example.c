@@ -3,6 +3,7 @@
 #include "SSD1306_writer.h"
 
 extern const SSD1306_FONT test[1028];
+extern const SSD1306_FONT te1[1028];
 int w=0;
 
 int main(void){
@@ -23,19 +24,24 @@ int main(void){
     ssd = SSD1306_init(0x3C, SSD1306_32_PX);
     SSD1306_clean(&ssd, 0);
 
+
     SSD1306_draw_pixel(&ssd, 1, 0, 0);
     SSD1306_set_constrast(&ssd, 0xB4);
     SSD1306_render_screen(&ssd);
 
     while(1){
-        SSD1306_write(&ssd, test, "Making font", 0, 0);
-        SSD1306_write(&ssd, test, "is not funny", 0, 9);
-        SSD1306_write(&ssd, test, "uvwxyz", 0, 20);
-        SSD1306_render_screen(&ssd);
+        SSD1306_write(&ssd, test, "Making font\0", 0, 0);
+        SSD1306_write(&ssd, te1, "a\0", 0, 9);
+        SSD1306_write(&ssd, test, "uvwxyz\0", 0, 20);
+        SSD1306_fast_render_screen(&ssd);
         for(i = 0 ; i < 255 ; i++){
             SSD1306_set_constrast(&ssd, i);
             Delay_Ms(10);
         }
+        SSD1306_write(&ssd, test, "Hmm second page test\0", 0, 0);
+        SSD1306_write(&ssd, te1, "a\0", 0, 9);
+        SSD1306_write(&ssd, test, "uvwxyz\0", 0, 20);
+        SSD1306_fast_render_screen(&ssd);
         for(uint8_t j = 254 ; j > 0 ; j--){
             SSD1306_set_constrast(&ssd, j);
             Delay_Ms(10);

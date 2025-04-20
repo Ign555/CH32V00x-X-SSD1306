@@ -36,7 +36,7 @@ In order to enhance my library's ergonomics, I made a python application that pr
 
 This application should be released in the same time as the version 1.2 of my library.  
 
-You can find the [repo here](https://github.com/Ign555/SSD1306-convert-tool)  
+You can find the [repo here](https://github.com/Ign555/SSD1306-convert-tool).  
 
 ## Changelog
 

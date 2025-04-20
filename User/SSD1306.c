@@ -170,7 +170,7 @@ void SSD1306_send_data(SSD1306 *display, uint8_t data){
 
 void SSD1306_draw_pixel(SSD1306 *display, uint8_t x, uint8_t y, uint8_t pixel_value){
 
-    if(y >= display->h || x >= SSD1306_COLUMNS)return; //Do not draw pixel if it include a buffer overflow
+    if(y >= display->h || x >= SSD1306_COLUMNS)return; //Do not draw pixel if it include a buffer over
 
     if(pixel_value){
         display->screen_buffer[_SSD1306_get_page(y)*SSD1306_COLUMNS + x] |= 1 << (y % SSD1306_NOMBER_OF_PIXEL_IN_A_PAGE);
@@ -208,6 +208,37 @@ void SSD1306_render_screen(SSD1306 *display){
             SSD1306_send_data(display, display->screen_buffer[i*SSD1306_COLUMNS + j]);
         }
     }
+    
+}
+
+void SSD1306_fast_render_screen(SSD1306 *display){
+
+    _SSD1306_set_page(display, 0); //Place the memory cursor on page 0
+    _SSD1306_set_column(display, 0); //Place the memory cursor on a column 0
+
+    while(I2C_GetITStatus(I2C1, I2C_FLAG_BUSY) != RESET); //Wait untill the line is not busy
+
+    I2C_GenerateSTART(I2C1, ENABLE); //Generate a start
+    
+    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT)); //Wait untill the chip switch in master mode
+
+    I2C_Send7bitAddress(I2C1, display->addr << 1, I2C_Direction_Transmitter); //Send the 7 bit address ( for sending data only )
+    
+    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED)); //Wait untill the master transmitter mode is enable
+    
+    I2C_SendData(I2C1, SSD1306_DATA_FLAG); //Send a byte to tell the display that it's a data
+    
+    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED)); //Wait untill the bytes has been sent
+    
+    //Fill the screen memory with the screen_buff array
+    for(uint8_t i = 0; i < display->h / SSD1306_PAGES ; i++){
+        for(uint8_t j = 0; j < SSD1306_COLUMNS; j++){
+            I2C_SendData(I2C1, display->screen_buffer[i*SSD1306_COLUMNS + j]); //Send the command
+            while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED)); //Wait untill the bytes has been sent
+        }
+    }
+
+    I2C_GenerateSTOP(I2C1, ENABLE); //Generate a stop 
     
 }
 

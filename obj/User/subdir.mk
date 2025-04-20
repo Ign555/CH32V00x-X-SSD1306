@@ -10,6 +10,7 @@ C_SRCS += \
 ../User/ch32v00x_it.c \
 ../User/example.c \
 ../User/font6x8test.c \
+../User/font8x8test.c \
 ../User/system_ch32v00x.c 
 
 C_DEPS += \
@@ -18,6 +19,7 @@ C_DEPS += \
 ./User/ch32v00x_it.d \
 ./User/example.d \
 ./User/font6x8test.d \
+./User/font8x8test.d \
 ./User/system_ch32v00x.d 
 
 OBJS += \
@@ -26,6 +28,7 @@ OBJS += \
 ./User/ch32v00x_it.o \
 ./User/example.o \
 ./User/font6x8test.o \
+./User/font8x8test.o \
 ./User/system_ch32v00x.o 
 
 

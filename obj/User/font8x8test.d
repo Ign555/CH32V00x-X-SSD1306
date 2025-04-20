@@ -1,4 +1,4 @@
-User/font6x8test.o: ../User/font6x8test.c ../User/SSD1306_writer.h \
+User/font8x8test.o: ../User/font8x8test.c ../User/SSD1306_writer.h \
  ../User/SSD1306.h \
  c:/Users/netwo/Documents/GitHub/CH32V003F4P6-X-SSD1306/Peripheral/inc/ch32v00x_gpio.h \
  c:/Users/netwo/Documents/GitHub/CH32V003F4P6-X-SSD1306/Peripheral/inc/ch32v00x.h \
