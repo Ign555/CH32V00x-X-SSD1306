@@ -59,7 +59,7 @@ You can find the [repo here](https://github.com/Ign555/SSD1306-convert-tool).
 ## To do list
 
 * Test multiple font size
-* Add image drawing  
+* Make tool for image
 
 ### License
 

@@ -1,9 +1,12 @@
 #include "debug.h"
 #include "SSD1306.h"
+#include "SSD1306_img.h"
 #include "SSD1306_writer.h"
 
 extern const SSD1306_FONT test[1028];
 extern const SSD1306_FONT te1[1028];
+extern const SSD1306_IMG img1[8];
+
 int w=0;
 
 int main(void){
@@ -33,19 +36,18 @@ int main(void){
         SSD1306_write(&ssd, test, "Making font\0", 0, 0);
         SSD1306_write(&ssd, te1, "a\0", 0, 9);
         SSD1306_write(&ssd, test, "uvwxyz\0", 0, 20);
+        SSD1306_draw_image(&ssd, img1, 72, 0);
         SSD1306_fast_render_screen(&ssd);
+        /*
         for(i = 0 ; i < 255 ; i++){
             SSD1306_set_constrast(&ssd, i);
             Delay_Ms(10);
         }
-        SSD1306_write(&ssd, test, "Hmm second page test\0", 0, 0);
-        SSD1306_write(&ssd, te1, "a\0", 0, 9);
-        SSD1306_write(&ssd, test, "uvwxyz\0", 0, 20);
-        SSD1306_fast_render_screen(&ssd);
         for(uint8_t j = 254 ; j > 0 ; j--){
             SSD1306_set_constrast(&ssd, j);
             Delay_Ms(10);
         }
+        SSD1306_clean(&ssd, 0);*/
         
     }
 
