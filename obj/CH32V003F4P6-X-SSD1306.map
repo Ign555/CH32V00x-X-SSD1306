@@ -1012,7 +1012,7 @@ END GROUP
  *fill*         0x000000000000009e        0x2 
                 0x00000000000000a0                _einit = .
 
-.text           0x00000000000000a0     0x2d74
+.text           0x00000000000000a0     0x2de4
                 0x00000000000000a0                . = ALIGN (0x4)
  *(.text)
  .text          0x00000000000000a0       0x14 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32ecxw/ilp32e\libgcc.a(save-restore.o)
@@ -1217,56 +1217,56 @@ END GROUP
                 0x000000000000166c                test
  .rodata.te1    0x0000000000001a70     0x1388 ./User/font8x8test.o
                 0x0000000000001a70                te1
- .rodata.img1   0x0000000000002df8       0x13 ./User/img1.o
+ .rodata.img1   0x0000000000002df8       0x83 ./User/img1.o
                 0x0000000000002df8                img1
- *fill*         0x0000000000002e0b        0x1 
+ *fill*         0x0000000000002e7b        0x1 
  .rodata.print.str1.4
-                0x0000000000002e0c        0x8 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
+                0x0000000000002e7c        0x8 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
                                           0x7 (size before relaxing)
  *(.gnu.linkonce.t.*)
-                0x0000000000002e14                . = ALIGN (0x4)
+                0x0000000000002e84                . = ALIGN (0x4)
 
-.rela.dyn       0x0000000000002e14        0x0
+.rela.dyn       0x0000000000002e84        0x0
  .rela.text.startup.main
-                0x0000000000002e14        0x0 ./User/SSD1306.o
- .rela.init     0x0000000000002e14        0x0 ./User/SSD1306.o
+                0x0000000000002e84        0x0 ./User/SSD1306.o
+ .rela.init     0x0000000000002e84        0x0 ./User/SSD1306.o
  .rela.text.handle_reset
-                0x0000000000002e14        0x0 ./User/SSD1306.o
+                0x0000000000002e84        0x0 ./User/SSD1306.o
  .rela.text._sbrk
-                0x0000000000002e14        0x0 ./User/SSD1306.o
+                0x0000000000002e84        0x0 ./User/SSD1306.o
  .rela.data.curbrk.4084
-                0x0000000000002e14        0x0 ./User/SSD1306.o
+                0x0000000000002e84        0x0 ./User/SSD1306.o
  .rela.text.prints
-                0x0000000000002e14        0x0 ./User/SSD1306.o
+                0x0000000000002e84        0x0 ./User/SSD1306.o
  .rela.text.printInt
-                0x0000000000002e14        0x0 ./User/SSD1306.o
+                0x0000000000002e84        0x0 ./User/SSD1306.o
  .rela.text.print
-                0x0000000000002e14        0x0 ./User/SSD1306.o
+                0x0000000000002e84        0x0 ./User/SSD1306.o
  .rela.text.printf
-                0x0000000000002e14        0x0 ./User/SSD1306.o
+                0x0000000000002e84        0x0 ./User/SSD1306.o
  .rela.text._sbrk_r
-                0x0000000000002e14        0x0 ./User/SSD1306.o
+                0x0000000000002e84        0x0 ./User/SSD1306.o
  .rela.data.impure_data
-                0x0000000000002e14        0x0 ./User/SSD1306.o
+                0x0000000000002e84        0x0 ./User/SSD1306.o
 
-.fini           0x0000000000002e14        0x0
+.fini           0x0000000000002e84        0x0
  *(SORT_NONE(.fini))
-                0x0000000000002e14                . = ALIGN (0x4)
+                0x0000000000002e84                . = ALIGN (0x4)
                 [!provide]                        PROVIDE (_etext = .)
                 [!provide]                        PROVIDE (_eitcm = .)
 
-.preinit_array  0x0000000000002e14        0x0
+.preinit_array  0x0000000000002e84        0x0
                 [!provide]                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array)
                 [!provide]                        PROVIDE (__preinit_array_end = .)
 
-.init_array     0x0000000000002e14        0x0
+.init_array     0x0000000000002e84        0x0
                 [!provide]                        PROVIDE (__init_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.init_array.*) SORT_BY_INIT_PRIORITY(.ctors.*))
  *(.init_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .ctors)
                 [!provide]                        PROVIDE (__init_array_end = .)
 
-.fini_array     0x0000000000002e14        0x0
+.fini_array     0x0000000000002e84        0x0
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.fini_array.*) SORT_BY_INIT_PRIORITY(.dtors.*))
  *(.fini_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .dtors)
@@ -1286,15 +1286,15 @@ END GROUP
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
 
-.dalign         0x0000000020000000        0x0 load address 0x0000000000002e14
+.dalign         0x0000000020000000        0x0 load address 0x0000000000002e84
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                PROVIDE (_data_vma = .)
 
-.dlalign        0x0000000000002e14        0x0
-                0x0000000000002e14                . = ALIGN (0x4)
-                0x0000000000002e14                PROVIDE (_data_lma = .)
+.dlalign        0x0000000000002e84        0x0
+                0x0000000000002e84                . = ALIGN (0x4)
+                0x0000000000002e84                PROVIDE (_data_lma = .)
 
-.data           0x0000000020000000       0xa8 load address 0x0000000000002e14
+.data           0x0000000020000000       0xa8 load address 0x0000000000002e84
                 0x0000000020000000                . = ALIGN (0x4)
  *(.gnu.linkonce.r.*)
  *(.data .data.*)
@@ -1332,7 +1332,7 @@ END GROUP
                 0x00000000200000a8                . = ALIGN (0x4)
                 0x00000000200000a8                PROVIDE (_edata = .)
 
-.bss            0x00000000200000a8       0x14 load address 0x0000000000002ebc
+.bss            0x00000000200000a8       0x14 load address 0x0000000000002f2c
                 0x00000000200000a8                . = ALIGN (0x4)
                 0x00000000200000a8                PROVIDE (_sbss = .)
  *(.sbss*)
