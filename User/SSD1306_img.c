@@ -26,11 +26,13 @@ void SSD1306_draw_image(SSD1306 *display, const uint8_t *image, uint8_t x, uint8
 
     //Save the image pixels into the screen buffer
     for(uint8_t i = 0; i < height; i++){
+
         for(uint8_t j = 0; j < width; j++){
-            byte = ( j / 8 ) + i * nb_byte;
-            shift = j % 8;
+            byte = ( j / 8 ) + i * nb_byte; //Select the right byte
+            shift = j % 8; //Shift applied to select the right pixel in the byte
             SSD1306_draw_pixel(display, x + j, y + i, (image[byte + IMG_METADATA_OFFSET] >> shift) & 0x01);
         }
+        
     }
 
 }

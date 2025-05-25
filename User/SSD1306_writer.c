@@ -19,25 +19,46 @@
 
 /******************************SSD1306 write functions******************************/
 
-void SSD1306_write(SSD1306 *display, const SSD1306_FONT font[1028], char *text, uint8_t x, uint8_t y){
+void SSD1306_write(SSD1306 *display, const SSD1306_FONT font[], char *text, uint8_t x, uint8_t y){
 
     if(font[0] > MAX_CHAR)while(1); //if the number of char is bigger than the ascii table
-    
+
     //Draw it character by character
     for(uint8_t i = 0; text[i] != '\0'; i++){
-        if(text[i] >= font[FONT_CHAR_NUMBER_INDEX]) continue; //Check if the character could exist in the table
         SSD1306_draw_char(display, font, text[i], x + font[FONT_W_INDEX] * i, y);
     }
 
 }
 
-void SSD1306_draw_char(SSD1306 *display, const SSD1306_FONT font[1028], char c, uint8_t x, uint8_t y){
+void SSD1306_draw_char(SSD1306 *display, const SSD1306_FONT font[], char c, uint8_t x, uint8_t y){
+
+    //Variables
+    const uint8_t fw = font[FONT_W_INDEX]; //Store font width
+    const uint8_t fh = font[FONT_H_INDEX]; //Store font height
+    const uint8_t n_bytes_for_row = font[BIT_FORMAT_INDEX]; //Store the number of byte that take a character row
+    
+    uint8_t shift;
+
+    const int font_start_index = c * n_bytes_for_row * fh + FONT_METADATA_OFFSET; //Calculate the start point of the font array reading
+    int byte;
 
     //Save the character's pixels into the screen buffer
-    for(uint8_t i = 0; i < font[FONT_H_INDEX]; i++){
-        for(uint8_t j = 0; j < font[FONT_W_INDEX]; j++){
-            SSD1306_draw_pixel(display, x + j, y + i, ( font[c*font[FONT_H_INDEX] + i*(FONT_W_INDEX/BIT_IN_SSD1306_FONT + 1) + j/BIT_IN_SSD1306_FONT + FONT_METADATA_OFFSET] >> j )  & 0x01 );
+    for(uint8_t i = 0; i < fh; i++){ //For each line
+
+        for(uint8_t j = 0; j < fw; j++){ //For each pixel in byte
+
+            byte = font_start_index + ( j / 8 ) + i * n_bytes_for_row; //Select the right byte
+            shift = j % 8; //Shift applied to select the right pixel in the byte
+            //C'est un bordel T_T
+            SSD1306_draw_pixel(display, x + j, y + i, ( font[byte] >> shift ) & 0x01 );
+            
+            #ifdef __DEBUG__
+                printf("start index : %d for %c line : %d col : b_%d p_%d\n", font_start_index, c, i, byte, j);
+                printf("value : b_%x p_%x\n", font[byte], ( font[byte] >> shift ) & 0x01);
+            #endif
+
         }
+
     }
 
 }

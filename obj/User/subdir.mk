@@ -10,7 +10,6 @@ C_SRCS += \
 ../User/SSD1306_writer.c \
 ../User/ch32v00x_it.c \
 ../User/example.c \
-../User/font6x8test.c \
 ../User/font8x8test.c \
 ../User/img1.c \
 ../User/system_ch32v00x.c 
@@ -21,7 +20,6 @@ C_DEPS += \
 ./User/SSD1306_writer.d \
 ./User/ch32v00x_it.d \
 ./User/example.d \
-./User/font6x8test.d \
 ./User/font8x8test.d \
 ./User/img1.d \
 ./User/system_ch32v00x.d 
@@ -32,7 +30,6 @@ OBJS += \
 ./User/SSD1306_writer.o \
 ./User/ch32v00x_it.o \
 ./User/example.o \
-./User/font6x8test.o \
 ./User/font8x8test.o \
 ./User/img1.o \
 ./User/system_ch32v00x.o 
