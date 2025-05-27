@@ -43,11 +43,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  13 .debug_line   00006e6a  00000000  00000000  00013520  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    00001ad5  00000000  00000000  0001a38a  2**0
+ 14 .debug_str    00001acb  00000000  00000000  0001a38a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .comment      00000033  00000000  00000000  0001be5f  2**0
+ 15 .comment      00000033  00000000  00000000  0001be55  2**0
                   CONTENTS, READONLY
- 16 .debug_frame  00000c34  00000000  00000000  0001be94  2**2
+ 16 .debug_frame  00000c34  00000000  00000000  0001be88  2**2
                   CONTENTS, READONLY, DEBUGGING
 SYMBOL TABLE:
 00000000 l    d  .init	00000000 .init
@@ -93,8 +93,10 @@ SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 reent.c
 200008a0 g       .data	00000000 __global_pointer$
 00000968  w      .text	00000000 TIM1_CC_IRQHandler
+0000047e g     F .text	00000036 SSD1306_clear
 00000768 g     F .text	00000002 HardFault_Handler
 00000f72 g     F .text	00000002 __malloc_unlock
+000004b4 g     F .text	00000016 SSD1306_set_contrast
 00000968  w      .text	00000000 SysTick_Handler
 00000968  w      .text	00000000 PVD_IRQHandler
 00000766 g     F .text	00000002 NMI_Handler
@@ -107,12 +109,10 @@ SYMBOL TABLE:
 00000e66 g     F .text	0000000e malloc
 000000d4 g     F .text	0000002c .hidden __udivsi3
 000000a0 g       .init	00000000 _einit
-0000047e g     F .text	00000036 SSD1306_clean
 00000c9a g     F .text	0000001e RCC_APB2PeriphClockCmd
 000009ea g     F .text	0000007c GPIO_Init
 200000b0 g     O .bss	00000004 NVIC_Priority_Group
 00000968  w      .text	00000000 SPI1_IRQHandler
-000004b4 g     F .text	00000016 SSD1306_set_constrast
 00000da2 g     F .text	00000016 USART_Cmd
 00000f48 g     F .text	00000028 _sbrk_r
 000000a0 g     F .text	0000000a .hidden __riscv_save_1
@@ -633,7 +633,7 @@ Disassembly of section .text:
      47a:	8e7d                	and	a2,a2,a5
      47c:	bfdd                	j	472 <SSD1306_draw_pixel+0x32>
 
-0000047e <SSD1306_clean>:
+0000047e <SSD1306_clear>:
      47e:	00b035b3          	snez	a1,a1
      482:	4601                	li	a2,0
      484:	4781                	li	a5,0
@@ -641,7 +641,7 @@ Disassembly of section .text:
      48a:	08000313          	li	t1,128
      48e:	3118                	lbu	a4,1(a0)
      490:	830d                	srli	a4,a4,0x3
-     492:	00e7e363          	bltu	a5,a4,498 <SSD1306_clean+0x1a>
+     492:	00e7e363          	bltu	a5,a4,498 <SSD1306_clear+0x1a>
      496:	8082                	ret
      498:	4681                	li	a3,0
      49a:	4158                	lw	a4,4(a0)
@@ -649,13 +649,13 @@ Disassembly of section .text:
      49e:	9736                	add	a4,a4,a3
      4a0:	a30c                	sb	a1,0(a4)
      4a2:	0685                	addi	a3,a3,1
-     4a4:	fe669be3          	bne	a3,t1,49a <SSD1306_clean+0x1c>
+     4a4:	fe669be3          	bne	a3,t1,49a <SSD1306_clear+0x1c>
      4a8:	0785                	addi	a5,a5,1
      4aa:	0ff7f793          	andi	a5,a5,255
      4ae:	08060613          	addi	a2,a2,128
-     4b2:	bff1                	j	48e <SSD1306_clean+0x10>
+     4b2:	bff1                	j	48e <SSD1306_clear+0x10>
 
-000004b4 <SSD1306_set_constrast>:
+000004b4 <SSD1306_set_contrast>:
      4b4:	bedff2ef          	jal	t0,a0 <__riscv_save_0>
      4b8:	84ae                	mv	s1,a1
      4ba:	08100593          	li	a1,129
@@ -953,7 +953,7 @@ Disassembly of section .text:
      790:	c22e                	sw	a1,4(sp)
      792:	850a                	mv	a0,sp
      794:	4581                	li	a1,0
-     796:	31e5                	jal	47e <SSD1306_clean>
+     796:	31e5                	jal	47e <SSD1306_clear>
      798:	4681                	li	a3,0
      79a:	4601                	li	a2,0
      79c:	4585                	li	a1,1
@@ -961,7 +961,7 @@ Disassembly of section .text:
      7a0:	3145                	jal	440 <SSD1306_draw_pixel>
      7a2:	0b400593          	li	a1,180
      7a6:	850a                	mv	a0,sp
-     7a8:	3331                	jal	4b4 <SSD1306_set_constrast>
+     7a8:	3331                	jal	4b4 <SSD1306_set_contrast>
      7aa:	850a                	mv	a0,sp
      7ac:	3b39                	jal	4ca <SSD1306_render_screen>
      7ae:	6405                	lui	s0,0x1

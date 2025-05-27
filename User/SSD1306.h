@@ -135,8 +135,8 @@ void SSD1306_send_data(SSD1306 *display, uint8_t data);
 /******************************SSD1306 graphic functions******************************/
 
 void SSD1306_draw_pixel(SSD1306 *display, uint8_t x, uint8_t y, uint8_t pixel_value);
-void SSD1306_clean(SSD1306 *display, uint8_t pixel_value);
-void SSD1306_set_constrast(SSD1306 *display, uint8_t contrast);
+void SSD1306_clear(SSD1306 *display, uint8_t pixel_value);
+void SSD1306_set_contrast(SSD1306 *display, uint8_t contrast);
 void SSD1306_render_screen(SSD1306 *display);
 void SSD1306_fast_render_screen(SSD1306 *display);
 

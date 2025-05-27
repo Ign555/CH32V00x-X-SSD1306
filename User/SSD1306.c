@@ -180,7 +180,7 @@ void SSD1306_draw_pixel(SSD1306 *display, uint8_t x, uint8_t y, uint8_t pixel_va
 
 }
 
-void SSD1306_clean(SSD1306 *display, uint8_t pixel_value){
+void SSD1306_clear(SSD1306 *display, uint8_t pixel_value){
     
     //Fill the screen buffer with bit 0 ( black ) or 1 ( display color )
     for(uint8_t i = 0; i < display->h / SSD1306_PAGES; i++){
@@ -191,7 +191,7 @@ void SSD1306_clean(SSD1306 *display, uint8_t pixel_value){
     
 }
 
-void SSD1306_set_constrast(SSD1306 *display, uint8_t contrast){
+void SSD1306_set_contrast(SSD1306 *display, uint8_t contrast){
 
     SSD1306_send_command(display, SSD1306_SET_CONTRAST);
     SSD1306_send_command(display, contrast);
