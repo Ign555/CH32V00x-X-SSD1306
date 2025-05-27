@@ -28,7 +28,7 @@ That's mean you have to connect your display on the PC1 ```( SDA )``` and PC2 sc
 
 ### Documentation  
 
-Have to be write 
+You can find the documentation on my [blog](https://www.blog.ingeno.fr/bibliotheque-ssd1306-pour-les-microcontroleur-de-la-gamme-ch32v00x/)   
 
 ## Tools 
 
