@@ -25,9 +25,9 @@
 				"name": "font6x8test.h"
 			},
 			{
-				"name": "font6x8.h",
 				"parentLogicPath": "User",
-				"type": "file"
+				"type": "file",
+				"name": "font6x8.h"
 			}
 		],
 		"projectName": "CH32V003F4P6-X-SSD1306",
@@ -599,19 +599,19 @@
 		]
 	},
 	"flashConfig": {
-		"mcutype": "CH32V00x",
+		"mcutype": "CH32V003",
 		"address": "0x08000000",
 		"target_path": "obj/CH32V003F4P6-X-SSD1306.hex",
-		"clkSpeed": "High",
-		"debug_interface_mode": "1-wire serial",
+		"clkSpeed": "Low",
+		"debug_interface_mode": "",
 		"erase": true,
 		"program": true,
 		"verify": true,
 		"reset": true,
 		"sdiPrintf": false,
 		"disablepowerout": false,
-		"clearcodeflash": false,
-		"disablecodeprotect": false,
+		"clearcodeflash": true,
+		"disablecodeprotect": true,
 		"exepath": "",
 		"exearguments": ""
 	},

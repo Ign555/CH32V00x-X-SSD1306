@@ -24,10 +24,9 @@
 
 //Number of char for a font
 #define MAX_CHAR 128
-#define FONT_METADATA_OFFSET 3
+#define FONT_METADATA_OFFSET 2
 #define FONT_W_INDEX 0
 #define FONT_H_INDEX 1
-#define BIT_FORMAT_INDEX 2
 
 /****************************************************************
 *

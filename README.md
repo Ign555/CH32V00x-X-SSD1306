@@ -40,6 +40,8 @@ You can find the [repo here](https://github.com/Ign555/SSD1306-convert-tool).
 
 ## Changelog
 
+01/09/2025 : Font optimisation 
+
 24/05/2025 : Add image loading 
 
 18/04/2025 : Add multiple bit format ( multiple font size )  
@@ -60,8 +62,7 @@ You can find the [repo here](https://github.com/Ign555/SSD1306-convert-tool).
 
 ## To do list
 
-* Test multiple font size
-* Make a better font loader 
+* Release the font converter
 
 ### License
 

@@ -17,7 +17,7 @@
 *
 ****************************************************************/
 
-void I2C_init_for_SSD1306(){
+void I2C_init_for_SSD1306(int speed){
 
     //Set Clock command for GPIO, AF and I2C peripherical 
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC | RCC_APB2Periph_AFIO, ENABLE); 
@@ -34,7 +34,7 @@ void I2C_init_for_SSD1306(){
     //I2C Init
     I2C_InitTypeDef i2c = {0}; //A structure to initialise I2C
     i2c.I2C_Mode = I2C_Mode_I2C; 
-    i2c.I2C_ClockSpeed = 400000; //Set communication frequency at 400 kHz
+    i2c.I2C_ClockSpeed = speed; //Set communication frequency at 100 kHz
     i2c.I2C_DutyCycle = I2C_DutyCycle_16_9; //Set the sck signal duty cycle to 16:9
     i2c.I2C_Ack = I2C_Ack_Enable; //Enable Ack
     i2c.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit; //Use the 7 bits address mode ( simple mode )
@@ -59,6 +59,8 @@ SSD1306 SSD1306_init(uint8_t addr, uint8_t screen_height){
 
     if(addr > 0x7F)while(1); //Check if the SSD1306 address is valid, if not -> infinite loop
     if(screen_height < 15)while(1); //Check if the SSD1306 is size, if not ->infinite loop
+
+    Delay_Ms(1000); // Start screen delay
 
     //Alloc memory to screen buffer
     display.screen_buffer = (uint8_t *)malloc(sizeof(uint8_t) * SSD1306_COLUMNS * SSD1306_PAGES);
