@@ -53,11 +53,11 @@ int main(void){
         SSD1306_fast_render_screen(&ssd);
         
         for(i = 0 ; i < 255 ; i++){
-            SSD1306_set_contrast(&ssd, i);
+           // SSD1306_set_contrast(&ssd, i);
             Delay_Ms(10);
         }
         for(uint8_t j = 254 ; j > 0 ; j--){
-            SSD1306_set_contrast(&ssd, j);
+          //  SSD1306_set_contrast(&ssd, j);
             Delay_Ms(10);
         }
         SSD1306_clear(&ssd, 0);

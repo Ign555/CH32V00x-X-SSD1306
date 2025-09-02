@@ -62,7 +62,7 @@ You can find the [repo here](https://github.com/Ign555/SSD1306-convert-tool).
 
 ## To do list
 
-* Release the font converter
+* Empty for now
 
 ### License
 
